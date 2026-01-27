@@ -111,35 +111,47 @@ The `MainWindow` class manages the graphical user interface and connects user ac
 
 ## Core Concepts Demonstrated
 
-### Multiple Inheritance
+### Multiple Inheritance: The "Why"
 
-Multiple inheritance allows a class to inherit features from more than one base class.
-- **In this project**: `Smartphone` inherits from both `Camera` and `MusicPlayer`.
-- **Benefit**: It allows the `Smartphone` to be both a "Camera" and a "Music Player" simultaneously, reusing the code from both base classes without duplication.
+Multiple inheritance is a powerful C++ feature where a class can derive from more than one base class.
 
-### Encapsulation (Data Hiding)
+- **In this project**: The `Smartphone` class is defined as `class Smartphone : public Camera, public MusicPlayer`.
+- **Why use it here?**:
+    - **Functional Composition**: A smartphone is not *just* a camera or *just* a music player; it is both. Multiple inheritance allows us to compose the `Smartphone` class by bringing in the distinct behaviors of a `Camera` and a `MusicPlayer` into a single, unified object.
+    - **Code Reusability**: Instead of rewriting photo-taking logic and music-playing logic inside the `Smartphone` class, we "borrow" it from classes that already do those jobs well. This avoids code duplication and makes the system easier to maintain.
+    - **Natural Modeling**: It mirrors real-world relationships. A modern phone is an evolution that combined several standalone devices into one.
 
-Encapsulation is the practice of bundling data and the methods that operate on that data into a single unit (a class) and restricting direct access to some of the object's components.
-- **In this project**: The `password` and `storageUsed` variables in the `Smartphone` class are `private`.
+### Encapsulation & "Private Mode": The "Why"
+
+Encapsulation involves hiding the internal state of an object and requiring all interaction to be performed through a well-defined interface. In C++, this is achieved using the `private` access modifier.
+
+- **In this project**: Sensitive data like `password`, `storageUsed`, and `phoneUnlocked` are kept in **Private Mode**.
 - **Implementation**:
   ```cpp
   private:
       QString password;
       int storageUsed;
+      bool phoneUnlocked;
   ```
-- **Benefit**: It prevents external code (like `MainWindow`) from accidentally or maliciously changing the password or storage values directly.
+- **Why use Private members?**:
+    - **Data Integrity**: If the `password` were `public`, any part of the program (like a bug in the GUI) could change the password without going through a check. By making it `private`, we ensure that only the `Smartphone` class itself can modify it.
+    - **Security Simulation**: In a real phone, you wouldn't want any random "app" to be able to see or change your lock-screen password. Keeping it private simulates this security boundary.
+    - **Abstraction**: The user of the `Smartphone` class doesn't need to know *how* the storage is calculated or *where* the password is stored; they just need to call `unlockPhone()` or `getStorageInfo()`.
 
-### Access Control
+### Access Control: The "Why"
 
-Access control is implemented through public methods that provide a controlled way to interact with private data.
-- **In this project**: The `getStorageInfo()` method checks the `phoneUnlocked` state before returning any sensitive data.
+Access control works hand-in-hand with encapsulation to provide "Gatekeeping" for the object's features.
+
+- **In this project**: Even though `getStorageInfo()` is a `public` method, it has internal logic that restricts access based on the phone's state.
 - **Implementation**:
   ```cpp
   QString Smartphone::getStorageInfo() {
       if (!phoneUnlocked) {
           return "Phone is locked! Cannot access storage info.";
       }
-      // ... return actual info ...
+      // Actual sensitive data is only processed here...
   }
   ```
-- **Benefit**: It ensures that sensitive operations and data are only accessible when certain conditions (like being unlocked) are met.
+- **Why implement this?**:
+    - **State Management**: It ensures the object behaves consistently. A "Locked" phone should not be able to perform "Unlocked" actions.
+    - **Controlled Exposure**: It allows the programmer to define exactly *under what conditions* private data can be viewed or modified. This is the essence of "Information Hiding" in software engineering.
