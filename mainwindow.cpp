@@ -84,7 +84,8 @@ void MainWindow::setupUI()
     
     outputLog = new QTextEdit(this);
     outputLog->setReadOnly(true);
-    outputLog->setMaximumHeight(300);
+    outputLog->setMaximumHeight(120);
+    outputLog->setMinimumHeight(80);
     outputLog->setStyleSheet("background-color: #f0f0f0; font-family: Courier; color: #000;");
     logLayout->addWidget(outputLog);
     
@@ -100,11 +101,12 @@ void MainWindow::setupUI()
         "• Encapsulation (Private password & storage)\n"
         "• Access Control (Public methods protect private data)\n\n"
         "Default Password: 1234", this);
-    infoLabel->setStyleSheet("color: #000; font-size: 11px;");
+    infoLabel->setFont(QFont("Default", 11));
+    infoLabel->setPalette(palette());
+    infoLabel->setStyleSheet("font-size: 11px;");
     infoLayout->addWidget(infoLabel);
     
     mainLayout->addWidget(infoGroup);
-    
     mainLayout->addStretch();
 }
 
