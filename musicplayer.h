@@ -2,18 +2,29 @@
 #define MUSICPLAYER_H
 
 #include <QString>
+#include <QMediaPlayer>
+#include <QAudioOutput>
+#include <QObject>
 
-class MusicPlayer
+class MusicPlayer : public QObject
 {
+    Q_OBJECT
 public:
-    MusicPlayer();
+    MusicPlayer(QObject *parent = nullptr);
     virtual ~MusicPlayer();
     
-    void playMusic();
+    bool loadMusic(const QString &filePath);
+    bool playMusic();
+    void stopMusic();
+    bool isPlayingNow() const;
+    QString getCurrentSong() const;
 
 protected:
     bool isPlaying;
     QString currentSong;
+    QString currentFilePath;
+    QMediaPlayer *mediaPlayer;
+    QAudioOutput *audioOutput;
 };
 
 #endif // MUSICPLAYER_H

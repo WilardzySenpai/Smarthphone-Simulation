@@ -22,6 +22,8 @@ private slots:
     void onUnlockClicked();
     void onLockClicked();
     void onGetStorageClicked();
+    void onLoadMusicClicked();
+    void onStopMusicClicked();
     void updateUI();
 
 private:
@@ -40,6 +42,9 @@ private:
     QLabel *phoneStateLabel;
     QLabel *cameraStatusLabel;
     QLabel *photoPreviewLabel;
+    QPushButton *loadMusicButton;
+    QPushButton *stopMusicButton;
+    QLabel *musicStatusLabel;
     
     // Business Logic
     Smartphone *myPhone;

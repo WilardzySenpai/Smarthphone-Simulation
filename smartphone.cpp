@@ -2,7 +2,7 @@
 #include <QDebug>
 
 Smartphone::Smartphone() 
-    : Camera(), MusicPlayer(), password("1234"), 
+    : Camera(), MusicPlayer(nullptr), password("1234"), 
       storageUsed(0), totalStorage(256), phoneUnlocked(false)
 {
     qDebug() << "🔒 Smartphone initialized and LOCKED";
@@ -73,4 +73,29 @@ bool Smartphone::takePhoto()
 QString Smartphone::getLastPhotoPath() const
 {
     return Camera::getLastPhotoPath();
+}
+
+bool Smartphone::loadMusicFile(const QString &filePath)
+{
+    return MusicPlayer::loadMusic(filePath);
+}
+
+bool Smartphone::playMusic()
+{
+    return MusicPlayer::playMusic();
+}
+
+void Smartphone::stopMusic()
+{
+    MusicPlayer::stopMusic();
+}
+
+bool Smartphone::isMusicPlaying() const
+{
+    return MusicPlayer::isPlayingNow();
+}
+
+QString Smartphone::getCurrentSong() const
+{
+    return MusicPlayer::getCurrentSong();
 }

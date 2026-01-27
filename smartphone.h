@@ -19,6 +19,11 @@ public:
     bool isCameraAvailable() const;
     bool takePhoto();
     QString getLastPhotoPath() const;
+    bool loadMusicFile(const QString &filePath);
+    bool playMusic();
+    void stopMusic();
+    bool isMusicPlaying() const;
+    QString getCurrentSong() const;
     
 private:
     // Private members - sensitive data

@@ -3,6 +3,9 @@
 #include <QHBoxLayout>
 #include <QGroupBox>
 #include <QDebug>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QDir>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -93,6 +96,24 @@ void MainWindow::setupUI()
     
     mainLayout->addWidget(cameraGroup);
     
+    // Music Player Section
+    QGroupBox *musicGroup = new QGroupBox("Music Player", this);
+    QVBoxLayout *musicLayout = new QVBoxLayout(musicGroup);
+    
+    musicStatusLabel = new QLabel("🎵 No music loaded", this);
+    musicStatusLabel->setStyleSheet("font-size: 12px; color: #006600;");
+    musicLayout->addWidget(musicStatusLabel);
+    
+    QHBoxLayout *musicButtonLayout = new QHBoxLayout();
+    loadMusicButton = new QPushButton("📁 Load MP3 File", this);
+    stopMusicButton = new QPushButton("⏹️ Stop Music", this);
+    stopMusicButton->setEnabled(false);
+    musicButtonLayout->addWidget(loadMusicButton);
+    musicButtonLayout->addWidget(stopMusicButton);
+    musicLayout->addLayout(musicButtonLayout);
+    
+    mainLayout->addWidget(musicGroup);
+    
     // Output Log Section
     QGroupBox *logGroup = new QGroupBox("Activity Log", this);
     QVBoxLayout *logLayout = new QVBoxLayout(logGroup);
@@ -132,6 +153,8 @@ void MainWindow::createConnections()
     connect(takePhotoButton, &QPushButton::clicked, this, &MainWindow::onTakePhotoClicked);
     connect(playMusicButton, &QPushButton::clicked, this, &MainWindow::onPlayMusicClicked);
     connect(getStorageButton, &QPushButton::clicked, this, &MainWindow::onGetStorageClicked);
+    connect(loadMusicButton, &QPushButton::clicked, this, &MainWindow::onLoadMusicClicked);
+    connect(stopMusicButton, &QPushButton::clicked, this, &MainWindow::onStopMusicClicked);
 }
 
 void MainWindow::onTakePhotoClicked()
@@ -161,7 +184,11 @@ void MainWindow::onTakePhotoClicked()
 void MainWindow::onPlayMusicClicked()
 {
     outputLog->append("→ Play Music button clicked");
-    myPhone->playMusic();
+    if (myPhone->playMusic()) {
+        outputLog->append("✓ Music playing: " + myPhone->getCurrentSong());
+    } else {
+        outputLog->append("❌ No music file loaded. Load an MP3 file first!");
+    }
     updateUI();
 }
 
@@ -218,4 +245,44 @@ void MainWindow::updateUI()
         playMusicButton->setEnabled(false);
         getStorageButton->setEnabled(false);
     }
+    
+    // Update music status
+    if (myPhone->isMusicPlaying()) {
+        musicStatusLabel->setText("🎵 Now playing: " + myPhone->getCurrentSong());
+        musicStatusLabel->setStyleSheet("font-size: 12px; color: #006600; font-weight: bold;");
+        stopMusicButton->setEnabled(true);
+    } else if (myPhone->getCurrentSong() != "None") {
+        musicStatusLabel->setText("🎵 Loaded: " + myPhone->getCurrentSong());
+        musicStatusLabel->setStyleSheet("font-size: 12px; color: #0066cc;");
+        stopMusicButton->setEnabled(true);
+    } else {
+        musicStatusLabel->setText("🎵 No music loaded");
+        musicStatusLabel->setStyleSheet("font-size: 12px; color: #666666;");
+        stopMusicButton->setEnabled(false);
+    }
+}
+
+void MainWindow::onLoadMusicClicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,
+        "Open Audio File", QDir::homePath(),
+        "Audio Files (*.mp3 *.wav *.flac *.ogg);;All Files (*)");
+    
+    if (!fileName.isEmpty()) {
+        outputLog->append("→ Loading audio file: " + QFileInfo(fileName).fileName());
+        if (myPhone->loadMusicFile(fileName)) {
+            outputLog->append("✓ Audio file loaded successfully!");
+            outputLog->append("  File: " + myPhone->getCurrentSong());
+        } else {
+            outputLog->append("❌ Failed to load audio file!");
+        }
+        updateUI();
+    }
+}
+
+void MainWindow::onStopMusicClicked()
+{
+    outputLog->append("→ Stopping music");
+    myPhone->stopMusic();
+    updateUI();
 }
