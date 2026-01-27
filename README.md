@@ -28,35 +28,37 @@ A C++ Qt application that demonstrates **Multiple Inheritance** and **Encapsulat
 ## Building the Application
 
 ### Prerequisites
-- Qt 5.15 or higher (or Qt 6.x)
-- GCC/Clang compiler (Linux/macOS) or MSVC (Windows)
-- CMake or Qt Creator
+- Qt 6.x (with Qt Multimedia module for audio support)
+- GCC compiler (MinGW on Windows recommended)
+- qmake build tool
 
 ### Build Steps
 
-#### Option 1: Using Qt Creator (Recommended)
-1. Open Qt Creator
-2. File → Open File or Project
-3. Select `SmartphoneSimulator.pro`
-4. Configure with your Qt Kit
-5. Click "Build" (Ctrl+B)
-6. Click "Run" (Ctrl+R)
+#### Windows (Command Line)
+```bash
+cd C:\path\to\Smartphone
+qmake SmartphoneSimulator.pro
+mingw32-make clean
+mingw32-make
+.\release\SmartphoneSimulator.exe
+```
 
-#### Option 2: Command Line (Linux/macOS)
+#### Linux/macOS (Command Line)
 ```bash
 cd /path/to/smartphone_app
 qmake SmartphoneSimulator.pro
+make clean
 make
 ./SmartphoneSimulator
 ```
 
-#### Option 3: Command Line (Windows)
-```bash
-cd \path\to\smartphone_app
-qmake SmartphoneSimulator.pro
-mingw32-make  # or nmake if using MSVC
-SmartphoneSimulator.exe
-```
+#### Qt Creator (All Platforms)
+1. Open Qt Creator
+2. File → Open File or Project
+3. Select `SmartphoneSimulator.pro`
+4. Click "Configure Project"
+5. Press Ctrl+B to build
+6. Press Ctrl+R to run
 
 ## Usage
 
@@ -65,30 +67,44 @@ SmartphoneSimulator.exe
 
 ### Features
 
-1. **Take Photo**
+1. **Take Photo** 📷
    - Requires phone to be unlocked
-   - Increments photo counter
-   - Shows in activity log
+   - Detects if camera is available on the device
+   - Takes actual photos and saves them to Pictures folder with timestamps
+   - Photos are named: `photo_YYYY-MM-DD_HH-MM-SS_#.jpg`
+   - Shows photo save path in Camera Status section
+   - Demonstrates camera hardware detection
 
-2. **Play Music**
+2. **Play Music** 🎵
    - Requires phone to be unlocked
-   - Shows current playing song
-   - Demonstrates inherited functionality
+   - Click "📁 Load MP3 File" to select an audio file from your computer
+   - Supports MP3, WAV, FLAC, and OGG formats
+   - Click "🎵 Play Music" to play the loaded audio
+   - Click "⏹️ Stop Music" to stop playback
+   - Music Status section shows currently loaded/playing song
+   - Demonstrates inherited MusicPlayer functionality with real audio playback
 
-3. **Security**
+3. **Security** 🔐
    - Enter password (default: 1234)
-   - Click "Unlock Phone" to gain access
+   - Click "🔓 Unlock Phone" to gain access
    - Features are disabled when locked
-   - Click "Lock Phone" to re-lock
+   - Click "🔒 Lock Phone" to re-lock
+   - Password verification with feedback
 
-4. **Storage Info**
+4. **Storage Info** 📊
    - Only accessible when phone is unlocked
    - Shows storage usage in MB and percentage
    - Demonstrates access control
 
-5. **Activity Log**
+5. **Camera Status** 📹
+   - Displays if camera is available on device
+   - Shows last photo taken with file path
+   - Real-time camera availability detection
+
+6. **Activity Log** 📋
    - Displays all actions and messages
    - Shows success/failure of operations
+   - Shows detailed information about photo and music operations
    - Demonstrates encapsulation in action
 
 ## Project Structure
@@ -96,15 +112,15 @@ SmartphoneSimulator.exe
 ```
 smartphone_app/
 ├── camera.h              # Camera base class header
-├── camera.cpp            # Camera base class implementation
+├── camera.cpp            # Camera implementation with photo capture
 ├── musicplayer.h         # MusicPlayer base class header
-├── musicplayer.cpp       # MusicPlayer base class implementation
+├── musicplayer.cpp       # MusicPlayer implementation with Qt Multimedia
 ├── smartphone.h          # Smartphone derived class header
 ├── smartphone.cpp        # Smartphone derived class implementation
-├── mainwindow.h          # GUI window header
+├── mainwindow.h          # GUI window header with Qt Widgets
 ├── mainwindow.cpp        # GUI window implementation
 ├── main.cpp              # Application entry point
-├── SmartphoneSimulator.pro # Qt project file
+├── SmartphoneSimulator.pro # Qt project file with multimedia module
 └── README.md             # This file
 ```
 
@@ -146,6 +162,10 @@ Students will understand:
 - ✓ How public methods provide controlled access to private data
 - ✓ Real-world application of encapsulation concepts
 - ✓ Qt framework basics (signals, slots, layouts, widgets)
+- ✓ Qt Multimedia library for audio playback
+- ✓ File I/O operations in Qt
+- ✓ Hardware detection and capability checking
+- ✓ User authentication and access control patterns
 
 ## Troubleshooting
 
@@ -166,11 +186,16 @@ Students will understand:
 
 Possible extensions to the project:
 - Add battery level system
-- Implement file storage simulation
-- Add contacts and call history
+- Implement photo gallery/slideshow
+- Create music playlist with queue management
+- Add volume control for audio
+- Implement voice recording functionality
+- Add contacts and call history system
 - Create settings/preferences system
-- Add notification system
-- Implement call/message features
+- Add notification/alert system
+- Implement SMS/messaging features
+- Add timestamp and metadata to photos
+- Real-time audio visualization
 
 ## License
 
