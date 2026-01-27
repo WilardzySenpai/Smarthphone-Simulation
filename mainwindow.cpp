@@ -78,6 +78,21 @@ void MainWindow::setupUI()
     
     mainLayout->addWidget(featuresGroup);
     
+    // Camera Status Section
+    QGroupBox *cameraGroup = new QGroupBox("Camera Status", this);
+    QVBoxLayout *cameraLayout = new QVBoxLayout(cameraGroup);
+    
+    cameraStatusLabel = new QLabel("📹 Camera: Available", this);
+    cameraStatusLabel->setStyleSheet("font-size: 12px; color: #0066cc;");
+    cameraLayout->addWidget(cameraStatusLabel);
+    
+    photoPreviewLabel = new QLabel("No photo taken yet", this);
+    photoPreviewLabel->setStyleSheet("background-color: #f0f0f0; padding: 10px; border: 1px solid #ccc; font-size: 11px; color: #000000; font-weight: bold;");
+    photoPreviewLabel->setMinimumHeight(40);
+    cameraLayout->addWidget(photoPreviewLabel);
+    
+    mainLayout->addWidget(cameraGroup);
+    
     // Output Log Section
     QGroupBox *logGroup = new QGroupBox("Activity Log", this);
     QVBoxLayout *logLayout = new QVBoxLayout(logGroup);
@@ -122,7 +137,24 @@ void MainWindow::createConnections()
 void MainWindow::onTakePhotoClicked()
 {
     outputLog->append("→ Take Photo button clicked");
-    myPhone->takePhoto();
+    
+    // Check if camera is available
+    if (!myPhone->isCameraAvailable()) {
+        outputLog->append("❌ No camera available on this device!");
+        cameraStatusLabel->setText("📹 Camera: NOT AVAILABLE");
+        cameraStatusLabel->setStyleSheet("font-size: 12px; color: red;");
+        return;
+    }
+    
+    // Take the photo
+    if (myPhone->takePhoto()) {
+        outputLog->append("✓ Photo taken successfully!");
+        QString photoPath = myPhone->getLastPhotoPath();
+        photoPreviewLabel->setText("📷 Last photo: " + photoPath);
+    } else {
+        outputLog->append("❌ Failed to take photo!");
+    }
+    
     updateUI();
 }
 

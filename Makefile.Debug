@@ -701,7 +701,36 @@ debug/camera.o: camera.cpp camera.h \
 		C:/Qt/6.9.3/mingw_64/include/QtCore/qshareddata_impl.h \
 		C:/Qt/6.9.3/mingw_64/include/QtCore/qset.h \
 		C:/Qt/6.9.3/mingw_64/include/QtCore/qhash.h \
-		C:/Qt/6.9.3/mingw_64/include/QtCore/qvarlengtharray.h
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qvarlengtharray.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/QDate \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qdatetime.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qcalendar.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qlocale.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qvariant.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/q23utility.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/q20utility.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qobject.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qcoreevent.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qbasictimer.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qabstracteventdispatcher.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qeventloop.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qdeadlinetimer.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qelapsedtimer.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qobject_impl.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qbindingstorage.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/QTime \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/QDir \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qdir.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qdirlisting.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qfiledevice.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qiodevice.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qspan.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/q20iterator.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qfile.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qfileinfo.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qtimezone.h \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/QStandardPaths \
+		C:/Qt/6.9.3/mingw_64/include/QtCore/qstandardpaths.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\camera.o camera.cpp
 
 debug/musicplayer.o: musicplayer.cpp musicplayer.h \

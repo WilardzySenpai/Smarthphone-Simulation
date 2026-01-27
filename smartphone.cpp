@@ -59,3 +59,18 @@ void Smartphone::lockPhone()
     phoneUnlocked = false;
     qDebug() << "🔒 Phone LOCKED";
 }
+
+bool Smartphone::isCameraAvailable() const
+{
+    return Camera::isCameraAvailable();
+}
+
+bool Smartphone::takePhoto()
+{
+    return Camera::takePhoto();
+}
+
+QString Smartphone::getLastPhotoPath() const
+{
+    return Camera::getLastPhotoPath();
+}

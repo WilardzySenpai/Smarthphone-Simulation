@@ -9,10 +9,14 @@ public:
     Camera();
     virtual ~Camera();
     
-    void takePhoto();
+    bool isCameraAvailable() const;
+    bool takePhoto();
+    QString getLastPhotoPath() const;
 
 protected:
     int photoCount;
+    QString lastPhotoPath;
+    bool cameraAvailable;
 };
 
 #endif // CAMERA_H

@@ -16,6 +16,9 @@ public:
     QString getStorageInfo();
     bool isPhoneUnlocked() const;
     void lockPhone();
+    bool isCameraAvailable() const;
+    bool takePhoto();
+    QString getLastPhotoPath() const;
     
 private:
     // Private members - sensitive data

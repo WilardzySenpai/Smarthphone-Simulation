@@ -38,6 +38,8 @@ private:
     QPushButton *getStorageButton;
     QTextEdit *outputLog;
     QLabel *phoneStateLabel;
+    QLabel *cameraStatusLabel;
+    QLabel *photoPreviewLabel;
     
     // Business Logic
     Smartphone *myPhone;
