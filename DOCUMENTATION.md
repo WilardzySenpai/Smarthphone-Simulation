@@ -214,6 +214,7 @@ Encapsulation involves hiding the internal state of an object using the `private
     - **Data Integrity**: By making these members `private`, we ensure that only the `Smartphone` class itself can modify them, preventing external code from bypassing security rules.
 
 ### Access Control: The "Why"
+> Not so important to the graph and report
 
 Access control provides "Gatekeeping" for the object's features.
 
